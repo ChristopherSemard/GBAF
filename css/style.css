@@ -1,0 +1,42 @@
+
+
+:root{
+    --background-color : #ffffff;
+    --background-accent-color : #ffffff;
+    --background-color : #ffffff;
+
+
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header, footer
+{
+    background-color: #a8a2a2 ;
+    padding: 20px 100px;
+} 
+
+/* Header */
+header img{
+    height: 100%;
+    max-height: 100px;
+}
+header a, header a:visited{
+    text-decoration: none;
+}
+
+/* footer */
+footer{
+    margin-top: auto;
+}
