@@ -6,16 +6,16 @@ include_once('./sql/db-connection.php');
 include_once('./sql/db-data.php');
 
 
-// Intégration du header
-include_once('header.php');
 
-// Définition des données récupérées
+// Récupération des informations nécessaires à la requête
 $comment = strip_tags($_POST['message']);
-
-
 $userId = $_SESSION['LOGGED_USER_ID'];
 $partnerId = $_SESSION['PARTNER_ID'];
+
+// Requête pour créer l'utilisateur en BDD
 addMessageBdd($bdd, $comment, $userId, $partnerId);
+
+// Redirection vers la page du partenaire
 header('Location: ./partner.php/'.$_SESSION['PARTNER_SLUG']);
 
 
