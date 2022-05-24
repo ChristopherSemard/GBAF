@@ -2,6 +2,7 @@
 
 include_once('./sql/db-connection.php');
 
+// Questions secrètes
 $secretQuestions = ['Dans quelle ville êtes-vous né ?', 'Quel est votre film favori ?', 'Quelle est la marque de votre première voiture ?','Quelle est votre couleur favorite ?'];
 
 // Récupération des utilisateurs à l'aide du client MySQL
