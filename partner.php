@@ -10,7 +10,8 @@ include_once('./sql/db-data.php');
 session_start();
 
 // Récupération du slug pour identifier le partenaire à afficher
-$slug = str_replace('/partner.php/', '', $_SERVER['REQUEST_URI']);
+$url = $_SERVER['REQUEST_URI'];
+$slug = str_replace('/partner.php/', '', $url);
 
 // Affichage du partenaire
 function displayPartner($slug, $partners){
@@ -24,6 +25,9 @@ function displayPartner($slug, $partners){
                     <p class="partner_excerpt">' . $partner['description'] . '...</p>
                 </section>
             </article>';
+            
+            $_SESSION['PARTNER_ID'] = $partner['id_partner'];
+            $_SESSION['PARTNER_SLUG'] = $partner['slug'];
         }
     }
 }
@@ -83,9 +87,19 @@ function getComments($bdd, $slug){
         <?php displayComments($bdd, $slug); ?>
 
     </div>
+
+    <!-- Formulaire d'envoie de commentaire -->
+    <form class="comments_form" method="POST" action="../submit-comment.php">
+            <input type="text" id="inputMessage" name="message" placeholder="Message">
+            <button type="submit">Envoyer</button>
+    </form>
+
 </section>
 
 
 
+
 <!-- Intégration du header -->
-<?php include_once('footer.php');?>
+<?php 
+    include_once('footer.php');
+?>

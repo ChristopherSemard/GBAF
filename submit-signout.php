@@ -7,4 +7,4 @@ session_start();
 session_destroy();
 
 // Redirection vers l'index
-header('Location: ./index.php');
+header('Location: ../index.php');

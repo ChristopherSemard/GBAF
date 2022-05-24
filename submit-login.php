@@ -18,11 +18,11 @@ checkUser($username, $password, $users);
 
 function checkUser($username, $password, $users){
     // Parcourir la liste des utilisateur
-    foreach ($users as $key => $value) {
+    foreach ($users as $key => $user) {
         // Si les informations correspondent
-        if ($username == $value['username'] && password_verify($password, $value['password'])){
+        if ($username == $user['username'] && password_verify($password, $user['password'])){
             // Création de la connexion
-            createConnection($username);
+            createConnection($username, $user['id_user']);
             // Redirection vers l'index
             header('Location: ./index.php');
         }
@@ -30,10 +30,11 @@ function checkUser($username, $password, $users){
     // Si les informations ne correspondent pas on affiche l'erreur
     echo("<h3 class='text-center alert alert-danger' role='alert'>Vos informations ne sont pas valides.</h3>");
 }
-    
 
-function createConnection($username){
+
+function createConnection($username, $userId){
     $_SESSION['LOGGED_USER'] = $username;
+    $_SESSION['LOGGED_USER_ID'] = $userId;
 }
 
 
