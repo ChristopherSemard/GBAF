@@ -1,6 +1,6 @@
 <?php include_once('./sql/db-data.php'); ?>
 
-
+<!-- Présentation du site -->
 <section class="presentation">
     <h1 class="presentation_title">Bienvenue sur le site de la GBAF !</h1>
     <article class="presentation_text">
@@ -18,8 +18,11 @@
 </section>
 
 
+<!-- Section partenaires -->
 <section class="partners">
     <h2 class="partners_title">Liste des partenaires</h2>
+    
+    <!-- Intégration dynamique du contenu -->
     <?php
 
         foreach ($partners as $key => $partner) {

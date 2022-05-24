@@ -1,4 +1,6 @@
 
+        
+        <!-- Formulaire de connexion -->
         <h2>CONNEXION</h2>
         <form  method="POST" action="./submit-login.php">
             <div>

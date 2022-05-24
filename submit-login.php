@@ -10,12 +10,11 @@ $username = strip_tags($_POST['pseudo']);
 $password = strip_tags($_POST['password']);
 
 
-
 // Check si l'user existe
 checkUser($username, $password, $users);
     
 
-
+// Check si l'user existe
 function checkUser($username, $password, $users){
     // Parcourir la liste des utilisateur
     foreach ($users as $key => $user) {
@@ -36,7 +35,6 @@ function createConnection($username, $userId){
     $_SESSION['LOGGED_USER'] = $username;
     $_SESSION['LOGGED_USER_ID'] = $userId;
 }
-
 
 
 // Intégration du footer

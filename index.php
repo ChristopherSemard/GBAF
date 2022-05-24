@@ -14,7 +14,6 @@ session_start();
     <?php include_once('header.php'); 
 
 
-    
     if(!isset($_SESSION['LOGGED_USER'])){
         // Integration du formulaire de connexion
         include_once('login.php'); 

@@ -96,9 +96,6 @@ function getComments($bdd, $slug){
 
 </section>
 
-
-
-
 <!-- Intégration du header -->
 <?php 
     include_once('footer.php');
