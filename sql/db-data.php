@@ -11,7 +11,8 @@ $usersStatement->execute();
 $users = $usersStatement->fetchAll();
 
 // Récupération des utilisateurs à l'aide du client MySQL
-$commentsStatement = $bdd->prepare('SELECT * FROM comments');
-$commentsStatement->setFetchMode(PDO::FETCH_ASSOC);
-$commentsStatement->execute();
-$comments = $commentsStatement->fetchAll();
+$partnersStatement = $bdd->prepare('SELECT *, SUBSTRING(description, 1, 100) as excerpt FROM partners');
+$partnersStatement->setFetchMode(PDO::FETCH_ASSOC);
+$partnersStatement->execute();
+$partners = $partnersStatement->fetchAll();
+
