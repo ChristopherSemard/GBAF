@@ -38,14 +38,24 @@ function displayComments($bdd, $slug){
     }
     // Affichage des commentaires
     else{
+        foreach ($comments as $key => $comment) {
+            echo 
+            '<div class="comment">
+                <div class="comment_header">
+                    <p class="comment_header_firstname">' . $comment['prenom'] . '</p>
+                    <p class="comment_header_date">' . $comment['date_add'] . '</p>
+                </div>
+                <p class="comment_header_text">' . $comment['comment'] . '</p>
+            </div>';
 
+        }
     }
 }
 
 // Récupération des commentaires du partenaire
 function getComments($bdd, $slug){
     // Récupération des commentaires
-    $commentsStatement = $bdd->prepare('SELECT * FROM comments c INNER JOIN partners p ON c.id_partner = p.id_partner WHERE p.id_partner = :slug');
+    $commentsStatement = $bdd->prepare('SELECT u.prenom, c.comment, c.date_add FROM comments c INNER JOIN partners p ON c.id_partner = p.id_partner INNER JOIN users u ON u.id_user = c.id_user WHERE p.slug = :slug');
     $commentsStatement->setFetchMode(PDO::FETCH_ASSOC);
     $commentsStatement->execute(['slug' => $slug]);
     $comments = $commentsStatement->fetchAll();
@@ -74,6 +84,8 @@ function getComments($bdd, $slug){
 
     </div>
 </section>
+
+
 
 <!-- Intégration du header -->
 <?php include_once('footer.php');?>
