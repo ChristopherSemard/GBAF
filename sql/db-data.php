@@ -16,3 +16,26 @@ $partnersStatement = $bdd->prepare('SELECT *, SUBSTRING(description, 1, 100) as 
 $partnersStatement->setFetchMode(PDO::FETCH_ASSOC);
 $partnersStatement->execute();
 $partners = $partnersStatement->fetchAll();
+
+function getVotes($id_partner, $bdd){
+    // Récupération des votes sur les articles à l'aide du client MySQL
+    $votesStatement = $bdd->prepare('SELECT * FROM votes WHERE id_partner = :id_partner');
+    $votesStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $votesStatement->execute(['id_partner' => $id_partner]);
+    return $votesStatement->fetchAll();
+}
+
+function getVotesScore($id_partner, $bdd){
+    // Récupération des votes sur les articles à l'aide du client MySQL
+    $votesStatement = $bdd->prepare('SELECT *, SUM(vote) as score FROM votes WHERE id_partner = :id_partner');
+    $votesStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $votesStatement->execute(['id_partner' => $id_partner]);
+    $votes = $votesStatement->fetchAll();
+
+    if(count($votes) > 0){
+        return $votes[0]['score'];
+    }
+    else{
+        return '0';
+    }
+}

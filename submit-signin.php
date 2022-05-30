@@ -105,6 +105,7 @@ function checkUserAlreadyExist($username, $users){
 // Création de la connexion
 function createConnection($username){
     $_SESSION['LOGGED_USER'] = $username;
+    $_SESSION['LOGGED_USER_ID'] = $userId;
 }
 
 
