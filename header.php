@@ -25,7 +25,7 @@
                 if(isset($_SESSION['LOGGED_USER'])){
                                     
                     echo '  <form action="../submit-signout.php">
-                                <button class="btn btn-danger">Deconnexion</button>
+                                <button>Deconnexion</button>
                             </form>';
                 }
             ?>
