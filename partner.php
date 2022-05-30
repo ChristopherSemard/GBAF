@@ -104,7 +104,7 @@ function getComments($bdd, $slug){
     <!-- Formulaire d'envoie de commentaire -->
     <form class="comments_form" method="POST" action="../submit-comment.php">
         <label for="inputMessage">Poster un commentaire</label>
-        <textarea type="text" id="inputMessage" name="message" placeholder="Ecrire votre commentaire ici ..." rows="5"></textarea>
+        <textarea  id="inputMessage" name="message" placeholder="Ecrire votre commentaire ici ..." rows="5"></textarea>
         <button type="submit">Envoyer</button>
     </form>
     <?php
