@@ -31,7 +31,7 @@
                         <section class="partner_about">
                             <h3 class="partner_title">' . $partner['partner'] . '</h3>
                             <p class="partner_excerpt">' . $partner['excerpt'] . '...</p>
-                            <a class="partner_read_more" href="./partner.php/' . $partner['slug'] . '">Lire la suite</a>
+                            <a class="partner_read_more link-button" href="./partner.php/' . $partner['slug'] . '">Lire la suite</a>
                         </section>
                     </article>';
         }

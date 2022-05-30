@@ -60,3 +60,8 @@ function addUserDb($bdd, $password, $passwordConfirm, $username){
 function hashPassword($password) {
     return password_hash($password, PASSWORD_BCRYPT);
 }
+
+
+// Intégration du header
+include_once('footer.php');?>
+

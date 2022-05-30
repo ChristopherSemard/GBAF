@@ -9,6 +9,8 @@
     <link rel="icon" href="../assets/images/logo-gbaf.png" >
     <!-- CSS -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/c52cbb9b58.js" crossorigin="anonymous"></script>
 </head>
 
 <!-- Ouvertu du body -->

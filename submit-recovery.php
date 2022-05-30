@@ -38,10 +38,14 @@ function checkInfos($username, $question, $response, $users){
                     </form>';
             // Stockage du nom d'utilisateur dans la session
             $_SESSION['username'] = $username;
-        }
-        else {
-            // Si les informations ne correspondent pas on affiche l'erreur
-            echo("<h3 class='text-center alert alert-danger' role='alert'>Vos informations ne sont pas valides.</h3>");
+            return;
         }
     }
+    // Si les informations ne correspondent pas on affiche l'erreur
+    echo("<h3 class='text-center alert alert-danger' role='alert'>Vos informations ne sont pas valides.</h3>");
 }
+
+
+
+// Intégration du header
+include_once('footer.php');

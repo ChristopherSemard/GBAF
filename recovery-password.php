@@ -9,6 +9,10 @@ session_start();
 
 ?>
         
+    <!-- Intégration du header -->
+    <?php include_once('header.php');?>
+
+
         <!-- Formulaire de connexion -->
         <h2>MOT DE PASSE OUBLIE</h2>
         <form  method="POST" action="./submit-recovery.php">
@@ -23,6 +27,7 @@ session_start();
                 <select name="question" id="selectQuestion">
                     <option value="">--Choisir une question secrète--</option>
                     <?php
+                        // Affichage de toute la liste de questions serètes
                         foreach ($secretQuestions as $key => $question) {
                             echo '<option value="'.$key.'">'.$question.'</option>';
                         }
@@ -37,3 +42,7 @@ session_start();
             <!-- Bouton envoyer -->
             <button type="submit">Valider</button>
         </form>
+
+        
+    <!-- Intégration du footer -->
+    <?php include_once('footer.php'); ?>

@@ -30,7 +30,7 @@ function checkUser($username, $password, $users){
     echo("<h3 class='text-center alert alert-danger' role='alert'>Vos informations ne sont pas valides.</h3>");
 }
 
-
+// Création de la connexion
 function createConnection($username, $userId){
     $_SESSION['LOGGED_USER'] = $username;
     $_SESSION['LOGGED_USER_ID'] = $userId;
