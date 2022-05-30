@@ -22,7 +22,7 @@ function displayPartner($slug, $partners){
                 <img class="partner_image" src="' . $partner['logo'] . '" alt="Logo ' . $partner['partner'] . '" />
                 <section class="partner_about">
                     <h3 class="partner_title">' . $partner['partner'] . '</h3>
-                    <p class="partner_excerpt">' . $partner['description'] . '...</p>
+                    <p class="partner_excerpt">' . $partner['description'] . '</p>
                 </section>
             </article>';
             
@@ -90,11 +90,18 @@ function getComments($bdd, $slug){
 
     <!-- Formulaire d'envoie de commentaire -->
     <form class="comments_form" method="POST" action="../submit-comment.php">
+        <label for="inputMessage">Poster un commentaire</label>
             <input type="text" id="inputMessage" name="message" placeholder="Message">
             <button type="submit">Envoyer</button>
     </form>
-
+    <?php
+        if (isset($_SESSION['alreadyCommented']) && $_SESSION['alreadyCommented'] == true){
+            echo'<p id="alert" class="alert-comment">Vous avez déjà envoyé un commentaire sur ce partenaire</p>';
+            $_SESSION['alreadyCommented'] = false;
+        }
+    ?>
 </section>
+
 
 <!-- Intégration du header -->
 <?php 

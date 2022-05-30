@@ -16,4 +16,3 @@ $partnersStatement = $bdd->prepare('SELECT *, SUBSTRING(description, 1, 100) as 
 $partnersStatement->setFetchMode(PDO::FETCH_ASSOC);
 $partnersStatement->execute();
 $partners = $partnersStatement->fetchAll();
-
