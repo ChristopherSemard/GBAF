@@ -44,3 +44,19 @@ function getVotesScore($id_partner, $vote, $bdd){
     }
 }
 
+
+function getVoteUser($id_partner, $userId, $bdd){
+    // Récupération des votes sur les articles à l'aide du client MySQL
+    $votesStatement = $bdd->prepare('SELECT * FROM votes WHERE id_partner = :id_partner AND id_user = :id_user');
+    $votesStatement->setFetchMode(PDO::FETCH_ASSOC);
+    $votesStatement->execute(['id_partner' => $id_partner, 'id_user' => $userId]);
+    $vote = $votesStatement->fetchAll();
+    
+    if(count($vote) > 0){
+        return $vote[0]['vote'];
+    }
+    else{
+        return null;
+    }
+}
+

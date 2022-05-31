@@ -11,18 +11,22 @@ session_start();
 // Récupération du slug pour identifier le partenaire à afficher
 $url = $_SERVER['REQUEST_URI'];
 $slug = str_replace('/partner.php/', '', $url);
-
+$userId = $_SESSION['LOGGED_USER_ID'];
 
 
 
 // Affichage du partenaire
-function displayPartner($slug, $partners, $bdd){
+function displayPartner($slug, $partners, $userId, $bdd){
     foreach ($partners as $key => $partner) {
         if($partner['slug'] == $slug){
             // Récupérer le score du vote like/dislike du partenaire
             $votesPositive = getVotesScore($partner['id_partner'], 1, $bdd);
             $votesNegative = getVotesScore($partner['id_partner'], -1, $bdd);
-            
+            $voteUser = getVoteUser($partner['id_partner'], $userId, $bdd);
+
+            $icons = getFormLikeDislike($voteUser);
+
+
             // Intégration de l'article du partenaire
             echo    
             '<article class="partner_content">
@@ -30,11 +34,11 @@ function displayPartner($slug, $partners, $bdd){
                     <p class="partner_content_vote_number">'.$votesPositive.'</p>
                     <form method="post" action="../submit-vote.php">
                         <input type="text" value="1" name="vote" hidden>
-                        <button class="icon-button"><i class="fa-solid fa-thumbs-up"></i></button>
+                        <button class="icon-button">'.$icons['like'].'</i></button>
                     </form>
                     <form method="post" action="../submit-vote.php">
                         <input type="text" value="-1" name="vote" hidden>
-                        <button class="icon-button"><i class="fa-solid fa-thumbs-down"></i></button>
+                        <button class="icon-button">'.$icons['dislike'].'</i></button>
                     </form>
                     <p class="partner_content_vote_number">'.$votesNegative.'</p>
                 </div>
@@ -86,6 +90,32 @@ function getComments($bdd, $slug){
     $comments = $commentsStatement->fetchAll();
     return $comments;
 }
+
+function getFormLikeDislike($voteUser){
+    if($voteUser == 1){
+        $icons = array(
+                        'like' => '<i class="fa-solid fa-thumbs-up red">', 
+                        'dislike' => '<i class="fa-solid fa-thumbs-down">'
+                        );
+        return $icons;
+    }
+    elseif ($voteUser == -1) {
+        $icons = array(
+                        'like' => '<i class="fa-solid fa-thumbs-up">', 
+                        'dislike' => '<i class="fa-solid fa-thumbs-down red">'
+                        );
+        return $icons;
+    }
+    else{
+        $icons = array(
+                        'like' => '<i class="fa-solid fa-thumbs-up">', 
+                        'dislike' => '<i class="fa-solid fa-thumbs-down">'
+                        );
+        return $icons;
+    }
+}
+
+
 ?>
 
 
@@ -95,7 +125,7 @@ function getComments($bdd, $slug){
 <?php include_once('header.php'); ?>
 
 <!-- Intégration du contenu du partenaire -->
-<?php displayPartner($slug, $partners, $bdd); ?>
+<?php displayPartner($slug, $partners, $userId, $bdd); ?>
 
 <!-- Section commentaires -->
 <section class="comments">
@@ -111,7 +141,7 @@ function getComments($bdd, $slug){
     </form>
     <?php
         if (isset($_SESSION['alreadyCommented']) && $_SESSION['alreadyCommented'] == true){
-            echo'<p id="alert" class="alert-comment">Vous avez déjà envoyé un commentaire sur ce partenaire</p>';
+            echo'<p id="alert" class="alert-danger">Vous avez déjà envoyé un commentaire sur ce partenaire</p>';
             $_SESSION['alreadyCommented'] = false;
         }
     ?>
@@ -128,3 +158,5 @@ function getComments($bdd, $slug){
 <?php 
     include_once('footer.php');
 ?>
+
+

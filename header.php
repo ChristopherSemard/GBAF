@@ -43,14 +43,16 @@ function getUser($username, $users){
 
                     $user = getUser($_SESSION['LOGGED_USER'], $users);
                     echo '
-                    <a href="./profile.php">  
-                        <div class="user">
-                            <p><i class="fa-solid fa-circle-user"></i> '.$user['prenom'].' '. $user['nom'].'</p>
-                        </div>
-                    </a>
-                    <form action="../submit-signout.php">
-                        <button>Deconnexion</button>
-                    </form>';
+                    <div class="header_user">
+                        <a href="../profile.php">  
+                            <div class="user">
+                                <p><i class="fa-solid fa-circle-user"></i> '.$user['prenom'].' '. $user['nom'].'</p>
+                            </div>
+                        </a>
+                        <form class="signout" action="../submit-signout.php">
+                            <button>Deconnexion</button>
+                        </form>
+                    </div>';
                 }
             ?>
     </header>

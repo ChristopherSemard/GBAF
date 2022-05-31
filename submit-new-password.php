@@ -14,35 +14,41 @@ $username = $_SESSION['LOGGED_USER'];
 
 
 // Check si les informations sont valides
-$validForm = checkForm($password, $passwordConfirm);
+$validForm = checkForm($password, $newPassword, $newPasswordConfirm, $username, $users);
 // Si le formulaire est valide on crée l'utilisateur en base de données
 if($validForm){
-    addUserDb($bdd, $password, $passwordConfirm, $username);
-    $_SESSION['username'] = '';
+    updateUserDb($bdd, $newPassword, $username);
 }
-else{
-    $_SESSION['username'] = '';
-}
+
 
 
 // Check de la validité des infos
-function checkForm($password, $passwordConfirm) {
+function checkForm($password, $newPassword, $newPasswordConfirm, $username, $users) {
     
     // Regex pour valider les données
     $regexPassword = "/^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/";
 
+    // Check si l'user existe
+    if (!checkUser($username, $password, $users)){
+        echo("<h3 class='alert-danger' role='alert'>Votre mot de passe actuel n'est pas valide.</h3>");
+        return false;
+    }
+    // Mot de passes identiques
+    elseif ($password == $newPassword){
+        echo("<h3 class='alert-danger' role='alert'>Votre nouveau mot de passe est identique à l'ancien.</h3>");
+        return false;
+    }	
     // Validité du mot de passe
-    if (!preg_match($regexPassword, $password)){
-        echo("<h3 class='alert-danger' role='alert'>Votre mot de passe n'est pas valide.</h3>");
+    elseif (!preg_match($regexPassword, $newPassword)){
+        echo("<h3 class='alert-danger' role='alert'>Votre nouveau mot de passe n'est pas valide.</h3>");
         return false;
     }	
     // Correspondance du mot de passe
-    elseif ($password != $passwordConfirm){
-        echo("<h3 class='alert-danger' role='alert'>Vos mots de passe ne correspondent pas.</h3>");
+    elseif ($newPassword != $newPasswordConfirm){
+        echo("<h3 class='alert-danger' role='alert'>Vos nouveaux mots de passe ne correspondent pas.</h3>");
         return false;
     }
 
-    
     // Si aucun problème n'a été trouvé on valide l'inscription
     echo("  <h3 class='alert-success' role='alert'>Félicitations, votre mot de passe a été modifié.</h3>");
             
@@ -50,9 +56,27 @@ function checkForm($password, $passwordConfirm) {
 };
 
 
-// Requête pour créer l'utilisateur en BDD
-function addUserDb($bdd, $password, $passwordConfirm, $username){
-    $hashPassword = hashPassword($password);
+
+// Check si l'user existe
+function checkUser($username, $password, $users){
+    // Parcourir la liste des utilisateur
+    foreach ($users as $key => $user) {
+        // Si les informations correspondent
+        if ($username == $user['username'] && password_verify($password, $user['password'])){
+            return true;
+        }
+    }
+    // Si les informations ne correspondent pas on affiche l'erreur
+    echo("<h3 class='text-center alert alert-danger' role='alert'>Vos informations ne sont pas valides.</h3>");
+    return false;
+}
+
+
+
+
+// Requête pour update l'utilisateur en BDD
+function updateUserDb($bdd, $newPassword, $username){
+    $hashPassword = hashPassword($newPassword);
     $addUser = $bdd->prepare('UPDATE users SET password = :password WHERE username = :username');
     $addUser->execute(['username' => $username, 'password' => $hashPassword]);
 }
