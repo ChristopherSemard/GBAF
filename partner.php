@@ -20,13 +20,14 @@ function displayPartner($slug, $partners, $bdd){
     foreach ($partners as $key => $partner) {
         if($partner['slug'] == $slug){
             // Récupérer le score du vote like/dislike du partenaire
-            $votesScore = getVotesScore($partner['id_partner'], $bdd);
-
+            $votesPositive = getVotesScore($partner['id_partner'], 1, $bdd);
+            $votesNegative = getVotesScore($partner['id_partner'], -1, $bdd);
+            
             // Intégration de l'article du partenaire
             echo    
             '<article class="partner_content">
                 <div class="partner_content_vote">
-                    <p class="partner_content_vote_number">'.$votesScore.'</p>
+                    <p class="partner_content_vote_number">'.$votesPositive.'</p>
                     <form method="post" action="../submit-vote.php">
                         <input type="text" value="1" name="vote" hidden>
                         <button class="icon-button"><i class="fa-solid fa-thumbs-up"></i></button>
@@ -35,6 +36,7 @@ function displayPartner($slug, $partners, $bdd){
                         <input type="text" value="-1" name="vote" hidden>
                         <button class="icon-button"><i class="fa-solid fa-thumbs-down"></i></button>
                     </form>
+                    <p class="partner_content_vote_number">'.$votesNegative.'</p>
                 </div>
                 <img class="partner_content_image" src="' . $partner['logo'] . '" alt="Logo ' . $partner['partner'] . '" />
                 <section class="partner_content_about">

@@ -1,4 +1,19 @@
 
+<?php 
+require_once './sql/db-data.php';
+
+
+function getUser($username, $users){
+    foreach ($users as $key => $user) {
+        if ($username == $user['username']) {
+            return $user;
+        }
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,13 +40,21 @@
             <!-- Ajout du bouton deconnexion si l'utilisateur est connecté -->
             <?php
                 if(isset($_SESSION['LOGGED_USER'])){
-                                    
-                    echo '  <form action="../submit-signout.php">
-                                <button>Deconnexion</button>
-                            </form>';
+
+                    $user = getUser($_SESSION['LOGGED_USER'], $users);
+                    echo '
+                    <a href="./profile.php">  
+                        <div class="user">
+                            <p><i class="fa-solid fa-circle-user"></i> '.$user['prenom'].' '. $user['nom'].'</p>
+                        </div>
+                    </a>
+                    <form action="../submit-signout.php">
+                        <button>Deconnexion</button>
+                    </form>';
                 }
             ?>
     </header>
 
     <!-- Ouverture du main -->
     <main>
+

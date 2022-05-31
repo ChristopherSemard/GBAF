@@ -29,17 +29,18 @@ function getVotes($id_partner, $bdd){
     return $votesStatement->fetchAll();
 }
 
-function getVotesScore($id_partner, $bdd){
+function getVotesScore($id_partner, $vote, $bdd){
     // Récupération des votes sur les articles à l'aide du client MySQL
-    $votesStatement = $bdd->prepare('SELECT *, SUM(vote) as score FROM votes WHERE id_partner = :id_partner');
+    $votesStatement = $bdd->prepare('SELECT * FROM votes WHERE id_partner = :id_partner AND vote = :vote');
     $votesStatement->setFetchMode(PDO::FETCH_ASSOC);
-    $votesStatement->execute(['id_partner' => $id_partner]);
+    $votesStatement->execute(['id_partner' => $id_partner, 'vote' => $vote]);
     $votes = $votesStatement->fetchAll();
 
     if(count($votes) > 0){
-        return $votes[0]['score'];
+        return count($votes);
     }
     else{
         return '0';
     }
 }
+

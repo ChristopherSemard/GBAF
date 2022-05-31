@@ -7,8 +7,9 @@ include_once('./sql/db-data.php');
 include_once('header.php');
 
 // Définition des données récupérées
-$password = strip_tags($_POST['password']);
-$passwordConfirm = strip_tags($_POST['password-confirm']);
+$password = strip_tags($_POST['oldPassword']);
+$newPassword = strip_tags($_POST['password']);
+$newPasswordConfirm = strip_tags($_POST['password-confirm']);
 $username = $_SESSION['LOGGED_USER'];
 
 
